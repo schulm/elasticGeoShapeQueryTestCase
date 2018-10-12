@@ -7,9 +7,11 @@ import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -56,7 +58,9 @@ public class geoShapeNewEnvelope {
         final String doc =
                 "{\"geo\": {\r\n" + "\"coordinates\": [\r\n" + "-33.918711,\r\n" + "18.847685\r\n" + "],\r\n" + "\"type\": \"Point\"\r\n" + "}}";
 
-        this.client.prepareIndex(this.indexName, "doc", "testdoc").setSource(doc, XContentType.JSON).execute().actionGet();
+        this.client.index(
+                new IndexRequest(this.indexName, "doc", "testdoc").source(doc, XContentType.JSON).setRefreshPolicy(
+                        RefreshPolicy.IMMEDIATE)).actionGet();
         Thread.sleep(5000);
     }
 

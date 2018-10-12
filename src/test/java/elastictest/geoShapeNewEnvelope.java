@@ -69,7 +69,7 @@ public class geoShapeNewEnvelope {
     }
 
     @Test
-    public void geoShapeWithNewEnvelopeTest() throws IOException, InterruptedException {
+    public void testGeoShapeQueryWithTransportClient() throws IOException, InterruptedException {
         final SearchRequestBuilder elasticQuery = this.client.prepareSearch(this.indexName).setTypes("doc").setQuery(this.getQuery());
         final SearchResponse searchResponse = elasticQuery.execute().actionGet();
         Assert.assertEquals(1, searchResponse.getHits().getTotalHits()); // will pass

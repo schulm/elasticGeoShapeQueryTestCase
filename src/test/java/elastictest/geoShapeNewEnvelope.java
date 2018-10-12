@@ -3,9 +3,7 @@ package elastictest;
 import java.io.IOException;
 import java.net.InetAddress;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.Header;
 import org.apache.http.HttpHost;
-import org.apache.http.message.BasicHeader;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
@@ -79,7 +77,6 @@ public class geoShapeNewEnvelope {
     public void testGeoShapeQueryWithHttpClient() throws IOException {
         // search with http client
         final RestHighLevelClient httpClient = new RestHighLevelClient(RestClient.builder(new HttpHost(this.host, this.httpPort, "http")));
-        final Header header = new BasicHeader("bla", "bla");
         final SearchRequest httpQuery = org.elasticsearch.client.Requests.searchRequest(this.indexName).types("doc");
         final SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
         sourceBuilder.query(this.getQuery());
